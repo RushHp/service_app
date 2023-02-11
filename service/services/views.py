@@ -10,6 +10,7 @@ class SubscriptionView(ReadOnlyModelViewSet):
     # Предотвращение дублирования запросов в БД - prefetch_related.
     # Выбираем какие данные доставать.
     queryset = Subscriptions.objects.all().prefetch_related(
+        'plan',
         Prefetch(
             'client',
             queryset=Client.objects.all().select_related('user').only('company_name', 'user__email')
